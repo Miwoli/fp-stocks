@@ -13,6 +13,7 @@ services:
       - 49153
     volumes:
       - ./web:/var/www/app
+      - /var/www/app/node_modules
     links:
       - api
 
