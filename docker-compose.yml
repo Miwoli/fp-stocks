@@ -1,6 +1,22 @@
 version: '3.6'
 
 services:
+  db:
+    image: mariadb:10.4
+    container_name: fps_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+    volumes:
+      - database:/data/db
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+
   web:
     build: ./web
     working_dir: /var/www/app
@@ -28,24 +44,12 @@ services:
     volumes:
       - ./api:/var/www/app
       - /var/www/app/node_modules
+    restart: on-failure
+    depends_on:
+      - db
     links:
       - db
 
-  db:
-    image: mariadb:10.4
-    container_name: fps_db
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
-      MYSQL_ROOT_HOST: '%'
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASS}
-    volumes:
-      - database:/data/db
-    ports:
-      - '3306:3306'
-    expose:
-      - '3306'
 
   # DELETE IN PRODUCTION
   php_my_admin:
