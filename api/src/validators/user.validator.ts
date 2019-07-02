@@ -12,7 +12,6 @@ const UserValidator = () => {
                             .where({ login: value })
                             .first()
                             .then((item) => {
-                                console.log(item);
                                 if (!item) {
                                     return Promise.resolve();
                                 }
@@ -20,7 +19,6 @@ const UserValidator = () => {
                                 if (req.user && req.user.id === item.id) {
                                     return Promise.resolve();
                                 } else {
-                                    console.log('CCC');
                                     return Promise.reject('Login is already in use');
                                 }
                             });
