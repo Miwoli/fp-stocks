@@ -1,0 +1,49 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            Register
+        </mat-card-title>
+        <mat-card-subtitle>
+            <a [routerLink]="['/login']">Already have an account? Log in!</a>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="container-fluid">
+        <form class="row" #registerForm="ngForm" (ngSubmit)="signup()">
+            <mat-vertical-stepper #stepper>
+                <mat-step label="Personal data">
+                    <mat-form-field class="col-6">
+                        <input matInput placeholder="Enter your first name" type="text" class="example-right-align" [(ngModel)]="user.firstName" #firstName="ngModel" name="firstName" required />
+                    </mat-form-field>
+                    <mat-form-field class="col-6">
+                        <input matInput placeholder="Enter your last name" type="text" class="example-right-align" [(ngModel)]="user.lastName" #lastName="ngModel" name="lastName" required />
+                    </mat-form-field>
+                    <mat-form-field class="col-12">
+                        <input matInput placeholder="Enter your login" type="text" class="example-right-align" [(ngModel)]="user.login" #login="ngModel" name="login" required />
+                    </mat-form-field>
+                    <mat-form-field class="col-12">
+                        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" [(ngModel)]="user.password" #password="ngModel" name="password" required />
+                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </mat-form-field>
+                </mat-step>
+                <mat-step label="Account config">
+                    <mat-form-field class="col-12">
+                        <input matInput placeholder="Wallet" type="number" class="text-right" [(ngModel)]="user.money" #money="ngModel" name="money" required />
+                        <span matSuffix>zł&nbsp;</span>
+                    </mat-form-field>
+                    <mat-list>
+                        <mat-list-item *ngFor="let stock of user.stocks">
+                            <mat-form-field>
+                                <input matInput [placeholder]="stock.name" value="0" [(ngModel)]="stock.amount" [name]="stock.code" type="number" pattern="\d*" step="1" min="0" />
+                            </mat-form-field>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-step>
+                <mat-step label="Done">
+                    <div class=" col-12 controls d-flex justify-content-between align-center mt-3">
+                        <button type="submit" mat-raised-button color="accent">Register</button>
+                    </div>
+                </mat-step>
+            </mat-vertical-stepper>
+        </form>
+    </mat-card-content>
+</mat-card>

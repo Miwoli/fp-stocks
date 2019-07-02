@@ -1,0 +1,28 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <ng-container *ngTemplateOutlet="modalTitle"></ng-container><span> {{ name }}</span>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <ng-container *ngTemplateOutlet="modalSubtitle"></ng-container>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <ng-container *ngTemplateOutlet="modalContent"></ng-container>
+        <mat-form-field>
+            <input matInput placeholder="amount" [(ngModel)]="amount">
+            <span matSuffix>* {{ unit }}</span>
+        </mat-form-field>
+        <div *ngIf="amount">
+            <span>TOTAL: {{ amount * price | number:'1.2-5'}} zł</span>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="warn" type="button" (click)="cancel()">
+            <ng-container *ngTemplateOutlet="modalCancel ? modalCancel : defaultCancelBtn"></ng-container>
+        </button>
+        <button mat-raised-button color="primary" type="button" (click)="confirm()">
+            <ng-container *ngTemplateOutlet="modalConfirm ? modalConfirm : defaultSubmitBtn"></ng-container>
+        </button>
+    </mat-card-actions>
+</mat-card>

@@ -1,0 +1,72 @@
+<mat-toolbar>
+    <mat-toolbar-row>
+        <span>Stocks</span>
+        <span class="spacer"></span>
+        <span class="mr-4">{{user?.firstName}} {{user?.lastName}}</span>
+        <button (click)="logout()" type="button" mat-mini-fab color="warn">
+            <mat-icon class="icon" aria-hidden="false" aria-label="Log Out">power_settings_new</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+            <h1>Stocks</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Company</th>
+                        <th scope="col">Value</th>
+                        <th scope="col">Update time</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let stock of stocks">
+                        <td>{{ stock.code }}</td>
+                        <td>{{ stock.price }}</td>
+                        <td>{{ stock.updatedAt }}</td>
+                        <td><button mat-raised-button color="primary" (click)="buy(stock)">Buy</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="col-lg-6">
+            <h1>Wallet</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Company</th>
+                        <th scope="col">Unit Price</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Value</th>
+                        <th scope="col">Update time</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let stock of wallet">
+                        <td>{{ stock.code }}</td>
+                        <td>{{ stock.price }}</td>
+                        <td>{{ stock.amount }}</td>
+                        <td>{{ stock.price * stock.amount | number:'1.2-5' }}</td>
+                        <td>{{ stock.updatedAt }}</td>
+                        <td><button mat-raised-button color="primary" (click)="sell(stock.id)">Sell</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col">
+                    <h2>Available money: {{ user?.money }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #confirmTransactionTitle>Buy</ng-template>
+<ng-template #confirmTransactionContent></ng-template>
+<ng-template #confirmTransactionSubmit>Buy</ng-template>
+<ng-template #confirmTransactionCancel>Cancel</ng-template>

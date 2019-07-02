@@ -1,0 +1,64 @@
+version: '3.6'
+
+services:
+  web:
+    build: ./web
+    working_dir: /var/www/app
+    command: npm start
+    ports:
+      - 4200:4200
+      - 49153:49153
+    expose:
+      - 4200
+      - 49153
+    volumes:
+      - ./web:/var/www/app
+    links:
+      - api
+
+  api:
+    build: ./api
+    working_dir: /var/www/app
+    command: npm run dev
+    ports:
+      - 3030:3030
+    expose:
+      - 3030
+    volumes:
+      - ./api:/var/www/app
+      - /var/www/app/node_modules
+    links:
+      - db
+
+  db:
+    image: mariadb:10.4
+    container_name: fps_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+    volumes:
+      - database:/data/db
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+
+  # DELETE IN PRODUCTION
+  php_my_admin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports: 
+      - 8181:80
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: ${DB_ROOT_PASS}
+    links:
+      - db
+# END OF DELETE IN PRODUCTION
+
+volumes:
+  database:
+      driver: local

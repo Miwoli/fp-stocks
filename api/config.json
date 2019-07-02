@@ -1,0 +1,18 @@
+{
+    "page": "https://localhost:4200",
+    "host": "https://localhost:3030",
+    "wsAddress": "ws://webtask.future-processing.com:8068/ws/stocks",
+    "port": "3030",
+
+    "jwtAuth": {
+        "secret": "B989F6CB2346E2A81E5BCC5DE2837258C2F7E8ACF85F350083B5AF743652E812"
+    },
+
+    "database": {
+        "host": "172.21.0.2",
+        "database": "fp-stocks",
+        "user": "fp-stocks",
+        "password": "@$knB9MP5{{@3[B3",
+        "charset": "utf8"
+    }
+}

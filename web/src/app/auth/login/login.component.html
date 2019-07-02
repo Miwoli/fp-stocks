@@ -1,0 +1,24 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            Login
+        </mat-card-title>
+        <mat-card-subtitle>
+            <a [routerLink]="['/register']">Don't have an account? Register!</a>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="container-fluid">
+        <form class="row" #loginForm="ngForm" (ngSubmit)="signin()">
+            <mat-form-field class="col-12">
+                <input matInput placeholder="Enter your login" type="text" class="example-right-align" [(ngModel)]="data.login" #login="ngModel" name="login" required />
+            </mat-form-field>
+            <mat-form-field class="col-12">
+                <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" [(ngModel)]="data.password" #password="ngModel" name="password" required />
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </mat-form-field>
+            <div class="col-12 controls d-flex justify-content-between align-center">
+                <button type="submit" mat-raised-button color="accent">Login</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
