@@ -43,7 +43,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.1.0",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.18.0",
+    "knex": "^0.19.5",
     "moment": "^2.24.0",
     "mysql2": "^1.6.5",
     "node-http2": "^4.0.1",
